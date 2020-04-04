@@ -7,7 +7,19 @@ def possible_bipartition(dislikes)
   total_puppies.times do |current_puppy|
     if !visited_hash[current_puppy]
       visited_hash[current_puppy] = true
-      group_hash[current_puppy] = true
+
+      check_puppies = dislikes[current_puppy]
+
+      next_group = true
+
+      check_puppies.each do |puppy|
+        if group_hash[puppy]
+          next_group = !group_hash[puppy]
+          break
+        end
+      end
+
+      group_hash[current_puppy] = next_group
     end
 
     queue = dislikes[current_puppy]
