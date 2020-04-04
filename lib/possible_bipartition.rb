@@ -1,31 +1,27 @@
-
 def possible_bipartition(dislikes)
+  visited_hash = {}
   group_hash = {}
 
-  visited_hash = {}
+  total_puppies = dislikes.length
 
-  length = dislikes.length
-
-  current_group = true
-
-  length.times do |current_puppy|
+  total_puppies.times do |current_puppy|
     if !visited_hash[current_puppy]
-      group_hash[current_puppy] = current_group
       visited_hash[current_puppy] = true
+      group_hash[current_puppy] = true
     end
 
     queue = dislikes[current_puppy]
 
     while !queue.empty?
       check_puppy = queue.pop
+
       if visited_hash[check_puppy]
         return false if group_hash[check_puppy] == group_hash[current_puppy]
       else
-        group_hash[check_puppy] = !group_hash[current_puppy]
         visited_hash[check_puppy] = true
+        group_hash[check_puppy] = !group_hash[current_puppy]
       end
     end
-    current_group = !current_group
   end
 
   return true
