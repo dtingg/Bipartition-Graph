@@ -4,10 +4,6 @@ def possible_bipartition(dislikes)
   visited = {}
   groups = {}
 
-  total_puppies.times do |i|
-    visited[i] = false
-  end
-
   stack = []
 
   (0...total_puppies).each do |i|
