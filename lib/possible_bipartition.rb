@@ -1,37 +1,37 @@
 def possible_bipartition(dislikes)
-  visited_hash = {}
-  group_hash = {}
-
   total_puppies = dislikes.length
 
-  total_puppies.times do |current_puppy|
-    if !visited_hash[current_puppy]
-      visited_hash[current_puppy] = true
+  visited = {}
+  groups = {}
 
-      check_puppies = dislikes[current_puppy]
+  total_puppies.times do |i|
+    visited[i] = false
+  end
 
-      next_group = true
+  stack = []
 
-      check_puppies.each do |puppy|
-        if group_hash[puppy]
-          next_group = !group_hash[puppy]
-          break
-        end
-      end
-
-      group_hash[current_puppy] = next_group
+  (0...total_puppies).each do |i|
+    if !visited[i]
+      stack.push(i)
+      visited[i] = true
+      groups[i] = true
     end
 
-    queue = dislikes[current_puppy]
+    while !stack.empty?
+      current = stack.pop 
 
-    while !queue.empty?
-      check_puppy = queue.pop
+      neighbors = dislikes[current]
 
-      if visited_hash[check_puppy]
-        return false if group_hash[check_puppy] == group_hash[current_puppy]
-      else
-        visited_hash[check_puppy] = true
-        group_hash[check_puppy] = !group_hash[current_puppy]
+      neighbors.each do |puppy|
+        if !visited[puppy]
+          stack.push(puppy)
+          visited[puppy] = true
+          groups[puppy] = !groups[current]
+        else
+          if groups[puppy] == groups[current]
+            return false
+          end
+        end
       end
     end
   end
