@@ -3,17 +3,13 @@
 # Space: O(n) where n is the number of nodes in the graph.
 def possible_bipartition(dislikes)
   total_puppies = dislikes.length
-
-  visited = {}
   groups = {}
-
   stack = []
 
   (0...total_puppies).each do |i|
-    if !visited[i]
+    if !groups[i]
       stack.push(i)
-      visited[i] = true
-      groups[i] = true
+      groups[i] = 1
     end
 
     while !stack.empty?
@@ -22,10 +18,9 @@ def possible_bipartition(dislikes)
       neighbors = dislikes[current]
 
       neighbors.each do |puppy|
-        if !visited[puppy]
+        if !groups[puppy]
           stack.push(puppy)
-          visited[puppy] = true
-          groups[puppy] = !groups[current]
+          groups[puppy] = groups[current] * (-1)
         else
           if groups[puppy] == groups[current]
             return false
@@ -44,17 +39,14 @@ end
 def possible_bipartition(dislikes)
   total_puppies = dislikes.length
 
-  visited = {}
   groups = {}
 
   queue = []
 
   (0...total_puppies).each do |i|
-    if !visited[i]
+    if !groups[i]
       queue.push(i)
-
-      visited[i] = true
-      groups[i] = true
+      groups[i] = 1
     end
 
     while !queue.empty?
@@ -63,10 +55,9 @@ def possible_bipartition(dislikes)
       neighbors = dislikes[current]
 
       neighbors.each do |puppy|
-        if !visited[puppy]
+        if !groups[puppy]
           queue.push(puppy)
-          visited[puppy] = true
-          groups[puppy] = !groups[current]
+          groups[puppy] = groups[current] * (-1)
         else
           if groups[puppy] == groups[current]
             return false
