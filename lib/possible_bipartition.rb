@@ -14,7 +14,6 @@ def possible_bipartition(dislikes)
 
     while !stack.empty?
       current = stack.pop 
-
       neighbors = dislikes[current]
 
       neighbors.each do |puppy|
@@ -38,9 +37,7 @@ end
 # Space: O(n) where n is the number of nodes in the graph.
 def possible_bipartition(dislikes)
   total_puppies = dislikes.length
-
   groups = {}
-
   queue = []
 
   (0...total_puppies).each do |i|
@@ -51,7 +48,6 @@ def possible_bipartition(dislikes)
 
     while !queue.empty?
       current = queue.shift 
-
       neighbors = dislikes[current]
 
       neighbors.each do |puppy|
