@@ -6,7 +6,7 @@ def possible_bipartition(dislikes)
   groups = {}
   stack = []
 
-  (0...total_puppies).each do |i|
+  total_puppies.times do |i|
     if !groups[i]
       stack.push(i)
       groups[i] = 1
@@ -40,7 +40,7 @@ def possible_bipartition(dislikes)
   groups = {}
   queue = []
 
-  (0...total_puppies).each do |i|
+  total_puppies.times do |i|
     if !groups[i]
       queue.push(i)
       groups[i] = 1
